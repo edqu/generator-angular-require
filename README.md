@@ -1,8 +1,8 @@
 # AngularJS-RequireJS generator
 
-[![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/) [![Build Status](https://travis-ci.org/aaronallport/generator-angular-require.png?branch=master)](https://travis-ci.org/aaronallport/generator-angular-require)
+[![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/) [![Build Status](https://travis-ci.org/aaronallport/generator-angular-require.svg?branch=master)](https://travis-ci.org/aaronallport/generator-angular-require) [![Dependency status](https://david-dm.org/aaronallport/generator-angular-require/status.png)](https://david-dm.org/aaronallport/generator-angular-require#info=dependencies&view=table) [![Dev Dependency Status](https://david-dm.org/aaronallport/generator-angular-require/dev-status.png)](https://david-dm.org/aaronallport/generator-angular-require#info=devDependencies&view=table) [![Peer Dependency Status](https://david-dm.org/aaronallport/generator-angular-require/peer-status.png)](https://david-dm.org/aaronallport/generator-angular-require#info=peerDependencies&view=table)
 
-> Yeoman generator for AngularJS using RequireJS - lets you quickly set up a project with sensible defaults and best practises.
+> Yeoman generator for AngularJS using RequireJS - lets you quickly set up a project with sensible defaults and best practices.
 
 
 ## Usage
@@ -47,7 +47,7 @@ Available generators:
 **Note: Generators are to be run from the root directory of your app.**
 
 ### App
-Sets up a new AngularJS-RequireJS app, generating all the boilerplate you need to get started. The app generator also optionally installs Twitter Bootstrap and additional AngularJS modules, such as angular-resource (installed by default). All files created will be in the RequireJS/AMD format, and therefore all will be within "define" blocks.
+Sets up a new AngularJS-RequireJS app, generating all the boilerplate you need to get started. The app generator also optionally installs Bootstrap and additional AngularJS modules, such as angular-resource (installed by default). All files created will be in the RequireJS/AMD format, and therefore all will be within "define" blocks.
 
 Example:
 ```bash
@@ -77,6 +77,14 @@ Produces `app/views/myroute.html`:
 ```html
 <p>This is the myroute view</p>
 ```
+
+**Explicitly provide route URI**
+
+Example:
+```bash
+yo angular:route myRoute --uri=my/route
+```
+Produces controller and view as above and adds a route to `app/scripts/app.js` with URI `my/route`
 
 ### Controller
 Generates a controller in `app/scripts/controllers`.
@@ -208,7 +216,7 @@ CoffeeScript is not supported at this time. Sorry. We'll take a look at CoffeeSc
 
 **Deprecated**
 
-[Related Issue #452](https://github.com/yeoman/generator-angular/issues/452): This option has been removed in accordance with this issue on GitHub. The recommended build process uses `ngmin`, a tool that automatically adds these annotations. However, if you'd rather not use `ngmin`, you have to add these annotations manually yourself. **One thing to note is that `ngmin` does not produce minsafe code for things that are not main level elements like controller, services, providers, etc.:
+[Related Issue #452](https://github.com/yeoman/generator-angular/issues/452): This option has been removed in accordance with this issue on GitHub. The recommended build process uses `ngmin`, a tool that automatically adds these annotations. However, if you'd rather not use `ngmin`, you have to add these annotations manually yourself. *One thing to note is that `ngmin` does not produce minsafe code for things that are not main level elements like controller, services, providers, etc.:*
 ```javascript
 resolve: {
   User: function(myService) {
@@ -278,6 +286,10 @@ When submitting a PR, make sure that the commit messages match the [AngularJS co
 When submitting a bugfix, write a test that exposes the bug and fails before applying your fix. Submit the test alongside the fix.
 
 When submitting a new feature, add tests that cover the feature.
+
+## Changelog
+
+Recent changes can be viewed on Github on the [Releases Page](https://github.com/aaronallport/generator-angular-require/releases)
 
 ## License
 

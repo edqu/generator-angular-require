@@ -1,14 +1,14 @@
 /*jshint unused: vars */
 require.config({
-  paths: {
-    
-  },
+  paths: {},
   shim: {
     'angular' : {'exports' : 'angular'}<% if (routeModule) { %>,
     'angular-route': ['angular']<% } %><% if (cookiesModule) { %>,
     'angular-cookies': ['angular']<% } %><% if (sanitizeModule) { %>,
     'angular-sanitize': ['angular']<% } %><% if (resourceModule) { %>,
-    'angular-resource': ['angular']<% } %>,
+    'angular-resource': ['angular']<% } %><% if (animateModule) { %>,
+    'angular-animate': ['angular']<% } %><% if (touchModule) { %>,
+    'angular-touch': ['angular']<% } %>,
     'angular-mocks': {
       deps:['angular'],
       'exports':'angular.mock'
@@ -28,8 +28,10 @@ require([
   'angular-route'<% } %><% if (cookiesModule) { %>,
   'angular-cookies'<% } %><% if (sanitizeModule) { %>,
   'angular-sanitize'<% } %><% if (resourceModule) { %>,
-  'angular-resource'<% } %>
-], function(angular, app<% if (routeModule) { %>, ngRoutes<% } %><% if (cookiesModule) { %>, ngCookies<% } %><% if (sanitizeModule) { %>, ngSanitize<% } %><% if (resourceModule) { %>, ngResource<% } %>) {
+  'angular-resource'<% } %><% if (animateModule) { %>,
+  'angular-animate'<% } %><% if (touchModule) { %>,
+  'angular-touch'<% } %>
+], function(angular, app<% if (routeModule) { %>, ngRoutes<% } %><% if (cookiesModule) { %>, ngCookies<% } %><% if (sanitizeModule) { %>, ngSanitize<% } %><% if (resourceModule) { %>, ngResource<% } %><% if (animateModule) { %>, ngAnimate<% } %><% if (touchModule) { %>, ngTouch<% } %>) {
   'use strict';
   /* jshint ignore:start */
   var $html = angular.element(document.getElementsByTagName('html')[0]);

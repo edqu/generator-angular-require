@@ -10,24 +10,22 @@ var test    = require('./helper');
 var _       = require('underscore.string');
 
 describe('Angular-RequireJS generator appPath option', function () {
-  var appPath = 'app';
+  var appPath = 'customAppPath';
   var appName = 'App';
   var expected = [
-    'app/.htaccess',
-    'app/404.html',
-    'app/favicon.ico',
-    'app/robots.txt',
-    'app/styles/main.scss',
-    'app/views/main.html',
-    'app/index.html',
+    appPath + '/.htaccess',
+    appPath + '/404.html',
+    appPath + '/favicon.ico',
+    appPath + '/robots.txt',
+    appPath + '/styles/main.scss',
+    appPath + '/views/main.html',
+    appPath + '/index.html',
     '.bowerrc',
     '.editorconfig',
     '.gitignore',
     '.jshintrc',
     'Gruntfile.js',
     'package.json',
-    'bower.json',
-    'app/index.html',
     'bower.json'
   ];
   var mockPrompts = {
@@ -61,7 +59,7 @@ describe('Angular-RequireJS generator appPath option', function () {
         var out = [
           '{',
           '  "generator-angular-require": {',
-          '    "appPath": "app",',
+          '    "appPath": "' + appPath + '",',
           '    "appName": "' + appName + '"',
           '  }',
           '}'
@@ -89,8 +87,8 @@ describe('Angular-RequireJS generator appPath option', function () {
       this.angularRequire.app
         .on('end', function() {
           assert.file([].concat(expected, [
-            'app/scripts/app.js',
-            'app/scripts/controllers/main.js',
+            appPath + '/scripts/app.js',
+            appPath + '/scripts/controllers/main.js',
             'test/spec/controllers/mainSpec.js'
           ]));
           done();
@@ -99,12 +97,12 @@ describe('Angular-RequireJS generator appPath option', function () {
   });
 
   describe('Service Subgenerators', function () {
-    var subGeneratorTest = function(generatorType, name, targetDirectory, suffix, applyFn, specType, done) {
+    var subGeneratorTest = function(type, name, targetDirectory, suffix, scriptNameFn, done) {
       test.createSubGenerator(
-        generatorType,
+        type,
         [name],
         [
-          '../../' + generatorType,
+          '../../' + type,
           [
             helpers.createDummyGenerator(),
             'karma-require:app'
@@ -112,16 +110,10 @@ describe('Angular-RequireJS generator appPath option', function () {
         ],
         [],
         function() {
-          assert.fileContent([
-            [
-              path.join('app/scripts', targetDirectory, name + '.js'),
-              new RegExp(generatorType + '\\(\'' + applyFn(name) + suffix + '\'', 'g')
-            ],
-            [
-              path.join('test/spec', targetDirectory, name + 'Spec.js'),
-              new RegExp('describe\\(\'' + _.classify(specType) + ': ' + applyFn(name) + suffix + '\'', 'g')
-            ]
-          ]);
+          assert.fileContent(
+            path.join(appPath + '/scripts', targetDirectory, name + '.js'),
+            new RegExp(type + '\\(\'' + scriptNameFn(name) + suffix + '\'', 'g')
+          );
 
           done();
         }
@@ -131,21 +123,21 @@ describe('Angular-RequireJS generator appPath option', function () {
     it('should generate a new controller', function (done) {
       this.angularRequire.app
         .on('end', function () {
-          subGeneratorTest('controller', 'foo', 'controllers', 'Ctrl', _.classify, 'controller', done);
+          subGeneratorTest('controller', 'foo', 'controllers', 'Ctrl', _.classify, done);
         });
     });
 
     it('should generate a new directive', function (done) {
       this.angularRequire.app
         .on('end', function () {
-          subGeneratorTest('directive', 'foo', 'directives', '', _.camelize, 'directive', done);
+          subGeneratorTest('directive', 'foo', 'directives', '', _.camelize, done);
         });
     });
 
     it('should generate a new filter', function (done) {
       this.angularRequire.app
         .on('end', function () {
-          subGeneratorTest('filter', 'foo', 'filters', '', _.camelize, 'filter', done);
+          subGeneratorTest('filter', 'foo', 'filters', '', _.camelize, done);
         });
     });
 
@@ -153,7 +145,7 @@ describe('Angular-RequireJS generator appPath option', function () {
       it('should generate a new ' + t, function (done) {
         this.angularRequire.app
           .on('end', function () {
-            subGeneratorTest(t, 'foo', 'services', '', _.camelize, 'service', done);
+            subGeneratorTest(t, 'foo', 'services', '', _.camelize, done);
           });
       });
     });
@@ -161,11 +153,10 @@ describe('Angular-RequireJS generator appPath option', function () {
     it('should generate a new service', function (done) {
       this.angularRequire.app
         .on('end', function () {
-          subGeneratorTest('service', 'foo', 'services', '', _.capitalize, 'service', done);
+          subGeneratorTest('service', 'foo', 'services', '', _.capitalize, done);
         });
     });
   });
-
 
   describe('View', function () {
     it('should generate a new view', function (done) {

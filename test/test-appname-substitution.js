@@ -1,76 +1,88 @@
 /*global describe, before, it, beforeEach */
 'use strict';
-var fs = require('fs');
-var assert = require('assert');
-var path = require('path');
-var util = require('util');
-var generators = require('yeoman-generator');
-var helpers = require('yeoman-generator').test;
 
+var path    = require('path');
+var yeoman  = require('yeoman-generator');
+var helpers = yeoman.test;
+var assert  = yeoman.assert;
+var fs      = require('fs');
 
 describe('Angular-RequireJS generator template mechanism', function () {
-    //TODO: Add underscore dependency and test with _.camelize(folderName);
-    var folderName = 'UpperCaseBug';
-    var angular;
+  var appName = 'upperCaseBug';
 
-    beforeEach(function (done) {
-        var deps = [
-            '../../app',
-            '../../common',
-            '../../controller',
-            '../../main', [
-                helpers.createDummyGenerator(),
-                'karma-require:app'
-            ]
+  beforeEach(function (done) {
+    var deps = [
+      '../../app',
+      '../../controller',
+      [
+        helpers.createDummyGenerator(),
+        'karma-require:app'
+      ]
+    ];
+
+    this.angularRequire = {};
+
+    this.angularRequire.app = helpers.run(path.join(__dirname, '../app'))
+      .inDir(path.join(__dirname, 'tmp'), function () {
+        var out = [
+          '{',
+          '  "generator-angular-require": {',
+          '    "appPath": "app",',
+          '    "appName": "' + appName + '"',
+          '  }',
+          '}'
         ];
-        helpers.testDirectory(path.join(__dirname, folderName), function (err) {
-            if (err) {
-                done(err);
-            }
-            angular = helpers.createGenerator('angular-require:app', deps);
-            angular.options['skip-install'] = true;
-            done();
-        });
-    });
+        fs.writeFileSync('.yo-rc.json', out.join('\n'));
+      })
+      .withArguments([appName])
+      .withOptions({
+        'appPath': 'app',
+        'skip-welcome-message': true,
+        'skip-install': true,
+        'skip-message': true
+      })
+      .withPrompt({
+        compass: true,
+        bootstrap: true,
+        compassBootstrap: true,
+        modules: []
+      })
+      .withGenerators(deps);
 
-    it('should generate the same appName in every file', function (done) {
-        var expectedAppName = 'upperCaseBugApp';
-        var expected = [
-            'app/scripts/app.js',
-            'app/scripts/controllers/main.js',
-            'app/index.html',
-            'test/spec/controllers/mainSpec.js'
-        ];
-        helpers.mockPrompt(angular, {
-          compass: true,
-          bootstrap: true,
-          compassBootstrap: true,
-          modules: []
-        });
+    done();
+  });
 
-        angular.run({}, function () {
-            // Check if all files are created for the test
-            helpers.assertFiles(expected);
+  it('should generate the same appName in every file', function (done) {
+    this.angularRequire.app
+      .on('end', function () {
+        assert.file([
+          'app/scripts/app.js',
+          'app/scripts/controllers/main.js',
+          'app/index.html',
+          'test/spec/controllers/mainSpec.js'
+        ]);
 
-            // read JS Files
-            var app_js = fs.readFileSync('app/scripts/app.js', 'utf8');
-            var main_js = fs.readFileSync('app/scripts/controllers/main.js', 'utf8');
-            var main_test_js = fs.readFileSync('test/spec/controllers/mainSpec.js', 'utf8');
+        assert.fileContent(
+          'app/scripts/app.js',
+          new RegExp('module\\(\'' + appName + 'App\'')
+        );
 
-            // Test JS Files
-            var regex_js_app = new RegExp('module\\(\'' + expectedAppName + '\'');
-            assert.ok(regex_js_app.test(app_js), 'app.js template using a wrong appName');
-            var regex_js_controller = new RegExp('module\\(\'' + expectedAppName + '.controllers.MainCtrl\'');
-            assert.ok(regex_js_controller.test(main_js), 'main.js template using a wrong appName');
-            assert.ok(regex_js_controller.test(main_test_js), 'controller spec template using a wrong appName');
+        assert.fileContent(
+          'app/scripts/controllers/main.js',
+          new RegExp('module\\(\'' + appName + 'App.controllers.MainCtrl\'')
+        );
 
-            // read HTML file
-            var index_html = fs.readFileSync('app/index.html', 'utf8');
+        assert.fileContent(
+          'test/spec/controllers/mainSpec.js',
+          new RegExp('module\\(\'' + appName + 'App.controllers.MainCtrl\'')
+        );
 
-            // Test HTML File
-            var regex_html = new RegExp('ng-app=\"' + expectedAppName + '\"');
-            assert.ok(regex_html.test(index_html), 'index.html template using a wrong appName');
-            done();
-        });
-    });
+        assert.fileContent(
+          'app/index.html',
+          new RegExp('ng-app=\"' + appName + 'App\"')
+        );
+
+        done();
+      });
+  });
 });

@@ -13,7 +13,7 @@ requirejs.config({
     baseUrl: '/base/app/scripts',
 
     paths: {
-        
+
     },
 
     shim: {
@@ -21,7 +21,9 @@ requirejs.config({
         'angular-route': ['angular']<% } %><% if (cookiesModule) { %>,
         'angular-cookies': ['angular']<% } %><% if (sanitizeModule) { %>,
         'angular-sanitize': ['angular']<% } %><% if (resourceModule) { %>,
-        'angular-resource': ['angular']<% } %>,
+        'angular-resource': ['angular']<% } %><% if (animateModule) { %>,
+        'angular-animate': ['angular']<% } %><% if (touchModule) { %>,
+        'angular-touch': ['angular']<% } %>,
         'angular-mocks': {
           deps:['angular'],
           'exports':'angular.mock'

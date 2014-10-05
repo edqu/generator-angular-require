@@ -2,14 +2,6 @@
 var path = require('path');
 var fs = require('fs');
 
-
-module.exports = {
-  rewrite: rewrite,
-  rewriteFile: rewriteFile,
-  appName: appName,
-  injectIntoFile: injectIntoFile
-};
-
 function rewriteFile (args) {
   args.path = args.path || process.cwd();
   var fullPath = path.join(args.path, args.file);
@@ -45,9 +37,9 @@ function injectIntoFile (appPath, moduleName, attachedComponentName, injectedMod
 
   rewriteFile(config);
 
-  // Check for the existence of a controllers module as an 
+  // Check for the existence of a controllers module as an
   // application dependency. If it doesn't exist, inject it
-  var app_js = fs.readFileSync('app/scripts/app.js', 'utf8');
+  var app_js = fs.readFileSync(path.join(appPath, 'scripts/app.js'), 'utf8');
   var regex_app_module = new RegExp(injectedModuleName);
 
   if (!regex_app_module.test(app_js)) {
@@ -121,3 +113,10 @@ function appName (self) {
   }
   return suffix ? self._.classify(suffix) : '';
 }
+
+module.exports = {
+  rewrite: rewrite,
+  rewriteFile: rewriteFile,
+  appName: appName,
+  injectIntoFile: injectIntoFile
+};

@@ -2,7 +2,7 @@ Description:
     Creates a new AngularJS route
 
 Example:
-    yo angular:route thing
+    yo angular:route thing [--uri=path_to/thing]
 
     This will create:
         app/scripts/controllers/thing.js

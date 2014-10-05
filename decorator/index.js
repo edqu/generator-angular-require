@@ -4,77 +4,86 @@ var util = require('util');
 var ScriptBase = require('../script-base.js');
 var angularUtils = require('../util.js');
 var fs = require('fs');
+var yeoman = require('yeoman-generator');
 
-
-var Generator = module.exports = function Generator(args, options) {
-  ScriptBase.apply(this, arguments);
-  this.fileName = this.name;
+var buildRelativePath = function(fileName){
+  return path.join('decorators', fileName + "Decorator");
 };
 
-util.inherits(Generator, ScriptBase);
+var DecoratorGenerator = ScriptBase.extend({
+  constructor: function(name) {
+    ScriptBase.apply(this, arguments);
+    this.fileName = this.name;
 
-Generator.prototype.askForOverwrite = function askForOverwrite() {
-  var cb = this.async();
+    util.inherits(DecoratorGenerator, ScriptBase);
+  },
 
-  // TODO: Any yeoman.util function to handle this?
-  var fileExists = fs.existsSync(this.env.cwd + '/app/scripts/' + buildRelativePath(this.fileName) + ".js");
-  if (fileExists) {
-    var prompts = [{
-      type: 'confirm',
-      name: 'overwriteDecorator',
-      message: 'Would you like to overwrite existing decorator?',
-      default: false
-    }];
+  askForOverwrite: function() {
+    var cb = this.async();
 
-    this.prompt(prompts, function (props) {
-      this.overwriteDecorator = props.overwriteDecorator;
+    // TODO: Any yeoman.util function to handle this?
+    if (fs.existsSync(path.join(
+      this.env.cwd, this.env.options.appPath,
+      'scripts', buildRelativePath(this.fileName) + ".js"
+    ))) {
+      var prompts = [{
+        type: 'confirm',
+        name: 'overwriteDecorator',
+        message: 'Would you like to overwrite existing decorator?',
+        default: false
+      }];
 
+      this.prompt(prompts, function (props) {
+        this.overwriteDecorator = props.overwriteDecorator;
+
+        cb();
+      }.bind(this));
+    }
+    else{
       cb();
-    }.bind(this));
-  }
-  else{
-    cb();
-    return;
-  }
-};
+      return;
+    }
+  },
 
-Generator.prototype.askForNewName = function askForNewName() {
-  var cb = this.async();
+  askForNewName: function() {
+    var cb = this.async();
 
-  if (this.overwriteDecorator === undefined || this.overwriteDecorator === true) {
-    cb();
-    return;
-  }
-  else {
-    var prompts = [];
-    prompts.push({
-      name: 'decoratorName',
-      message: 'Alternative name for the decorator'
-    });
-
-    this.prompt(prompts, function (props) {
-      this.fileName = props.decoratorName;
-
+    if (this.overwriteDecorator === undefined || this.overwriteDecorator === true) {
       cb();
-    }.bind(this));
+      return;
+    }
+    else {
+      var prompts = [];
+      prompts.push({
+        name: 'decoratorName',
+        message: 'Alternative name for the decorator'
+      });
+
+      this.prompt(prompts, function (props) {
+        this.fileName = props.decoratorName;
+
+        cb();
+      }.bind(this));
+    }
+  },
+
+  createDecoratorFiles: function() {
+    this.appTemplate(
+      'decorator',
+      path.join('scripts', buildRelativePath(this.fileName))
+    );
+    this.addScriptToIndex(buildRelativePath(this.fileName));
+  },
+
+  // Re-write the main app module to account for our new dependency
+  injectDependenciesToApp: function () {
+    angularUtils.injectIntoFile(
+      this.config.get('appPath'),
+      'decorators/' + this.name.toLowerCase() + "Decorator",
+      this.classedName + 'Decorator',
+      this.scriptAppName + '.decorators.' + this.classedName
+    );
   }
-};
+});
 
-Generator.prototype.createDecoratorFiles = function createDecoratorFiles() {
-  this.appTemplate('decorator', 'scripts/' + buildRelativePath(this.fileName));
-  this.addScriptToIndex(buildRelativePath(this.fileName));
-};
-
-function buildRelativePath(fileName){
-  return 'decorators/' + fileName + "Decorator";
-}
-
-// Re-write the main app module to account for our new dependency
-Generator.prototype.injectDependenciesToApp = function () {
-  angularUtils.injectIntoFile(
-    this.env.options.appPath, 
-    'decorators/' + this.name.toLowerCase() + "decorator", 
-    this.classedName + 'Decorator', 
-    this.scriptAppName + '.decorators.' + this.classedName
-  );
-};
+module.exports = DecoratorGenerator;
