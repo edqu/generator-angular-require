@@ -1,3 +1,12 @@
+<a name="0.3.3"></a>
+### 0.3.3 (2014-10-11)
+
+
+#### Bug Fixes
+
+* **gen:** replace named function with anonymous ([3eead373](https://github.com/aaronallport/generator-angular-require/commit/3eead37317c800b14335ee7428e1aabdb7c495a3))
+
+
 <a name="0.3.2"></a>
 ### 0.3.2 (2014-09-23)
 
