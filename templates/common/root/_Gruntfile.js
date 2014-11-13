@@ -61,8 +61,10 @@ module.exports = function (grunt) {
         },
         files: [
           '<%%= yeoman.app %>/{,*/}*.html',
+		  '<%%= yeoman.app %>/{,*/}*.php',
           '.tmp/styles/{,*/}*.css',
-          '<%%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
+          '<%%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
+		  '<%%= yeoman.app %>/downloads/{,*/}*.{png,jpg,jpeg,gif,webp,svg,apk}'
         ]
       }
     },
@@ -168,7 +170,7 @@ module.exports = function (grunt) {
     // Automatically inject Bower components into the app
     wiredep: {
       app: {
-        src: ['<%%= yeoman.app %>/index.html'],
+        src: ['<%%= yeoman.app %>/index.php'],
         ignorePath:  /\.\.\//
       }<% if (compass) { %>,
       sass: {
@@ -223,6 +225,7 @@ module.exports = function (grunt) {
     // additional tasks can operate on them
     useminPrepare: {
       html: '<%%= yeoman.app %>/index.html',
+	  php: '<%%= yeoman.app %>/index.php',
       options: {
         dest: '<%%= yeoman.dist %>'
       }
@@ -230,7 +233,7 @@ module.exports = function (grunt) {
 
     // Performs rewrites based on filerev and the useminPrepare configuration
     usemin: {
-      html: ['<%%= yeoman.dist %>/{,*/}*.html'],
+      html: ['<%%= yeoman.dist %>/{,*/}*.html','<%%= yeoman.dist %>/{,*/}*.php'],
       css: ['<%%= yeoman.dist %>/styles/{,*/}*.css'],
       options: {
         assetsDirs: ['<%%= yeoman.dist %>','<%%= yeoman.dist %>/images']
@@ -297,7 +300,7 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           cwd: '<%%= yeoman.dist %>',
-          src: ['*.html', 'views/{,*/}*.html'],
+          src: ['*.html', 'views/{,*/}*.html', '*.php', 'views/{,*/}*.php'],
           dest: '<%%= yeoman.dist %>'
         }]
       }
@@ -319,7 +322,7 @@ module.exports = function (grunt) {
     // Replace Google CDN references
     cdnify: {
       dist: {
-        html: ['<%%= yeoman.dist %>/*.html']
+        html: ['<%%= yeoman.dist %>/*.html','<%%= yeoman.dist %>/*.php']
       }
     },
 
@@ -336,6 +339,8 @@ module.exports = function (grunt) {
             '.htaccess',
             '*.html',
             'views/{,*/}*.html',
+			'*.php',
+            'views/{,*/}*.php',
             'images/{,*/}*.{webp}',
             'fonts/*'
           ]

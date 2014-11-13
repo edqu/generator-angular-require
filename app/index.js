@@ -197,9 +197,9 @@ var AngularRequireJSGenerator = yeoman.generators.Base.extend({
 
     indexHtml: function() {
       this.ngRoute = this.env.options.ngRoute;
-      this.indexFile = this.engine(this.read('app/index.html'), this);
+      this.indexFile = this.engine(this.read('app/index.php'), this);
       this.indexFile = this.indexFile.replace(/&apos;/g, "'");
-      this.write(path.join(this.appPath, 'index.html'), this.indexFile);
+      this.write(path.join(this.appPath, 'index.php'), this.indexFile);
     },
 
     requireJsAppConfig: function() {
@@ -219,10 +219,10 @@ var AngularRequireJSGenerator = yeoman.generators.Base.extend({
 
       copy('.buildignore');
       copy('.htaccess');
-      copy('404.html');
+      copy('404.php');
       copy('favicon.ico');
       copy('robots.txt');
-      copy('views/main.html');
+      copy('views/main.php');
       this.directory(path.join('app', 'images'), path.join(this.appPath, 'images'));
     },
 

@@ -47,7 +47,7 @@ var RouteGenerator = ScriptBase.extend({
           'scripts/app.js'),
         needle: '.otherwise',
         splicable: [
-          "  templateUrl: 'views/" + this.name.toLowerCase() + ".html',",
+          "  templateUrl: 'views/" + this.name.toLowerCase() + ".php',",
           "  controller: '" + this.classedName + "Ctrl'"
         ]
       };

@@ -72,7 +72,7 @@ var ScriptBase = yeoman.generators.NamedBase.extend({
   addScriptToIndex: function(script) {
     try {
       var appPath = this.env.options.appPath;
-      var fullPath = path.join(appPath, 'index.html');
+      var fullPath = path.join(appPath, 'index.php');
       angularUtils.rewriteFile({
         file: fullPath,
         needle: '<!-- endbuild -->',
@@ -89,7 +89,7 @@ var ScriptBase = yeoman.generators.NamedBase.extend({
 
   generateSourceAndTest: function(appTemplate, testTemplate, targetDirectory, skipAdd) {
     // Services use classified names
-    if (this.options.namespace === 'angular-require:service') {
+    if (this.options.namespace === 'angular-require-php:service') {
       this.cameledName = this.classedName;
     }
 

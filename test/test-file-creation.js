@@ -18,7 +18,7 @@ describe('Angular-RequireJS generator appPath option', function () {
     'app/favicon.ico',
     'app/robots.txt',
     'app/styles/main.scss',
-    'app/views/main.html',
+    'app/views/main.php',
     'app/index.html',
     '.bowerrc',
     '.editorconfig',
@@ -27,7 +27,7 @@ describe('Angular-RequireJS generator appPath option', function () {
     'Gruntfile.js',
     'package.json',
     'bower.json',
-    'app/index.html',
+    'app/index.php',
     'bower.json'
   ];
   var mockPrompts = {
@@ -183,7 +183,7 @@ describe('Angular-RequireJS generator appPath option', function () {
             ],
             [],
             function() {
-              assert.file([appPath + '/views/foo.html']);
+              assert.file([appPath + '/views/foo.php']);
 
               done();
             }
@@ -206,7 +206,7 @@ describe('Angular-RequireJS generator appPath option', function () {
             ],
             [],
             function() {
-              assert.file([appPath + '/views/foo/bar.html']);
+              assert.file([appPath + '/views/foo/bar.php']);
 
               done();
             }

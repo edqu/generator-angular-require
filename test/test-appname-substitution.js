@@ -58,7 +58,7 @@ describe('Angular-RequireJS generator template mechanism', function () {
         assert.file([
           'app/scripts/app.js',
           'app/scripts/controllers/main.js',
-          'app/index.html',
+          'app/index.php',
           'test/spec/controllers/mainSpec.js'
         ]);
 

@@ -1,7 +1,7 @@
 {
-  "name": "generator-angular-require",
+  "name": "generator-angular-require-php",
   "version": "0.3.3",
-  "description": "Yeoman generator for AngularJS using RequireJS",
+  "description": "Yeoman generator for AngularJS using RequireJS And PHP",
   "keywords": [
     "yeoman-generator",
     "scaffold",
@@ -12,7 +12,7 @@
     "angular",
     "requirejs"
   ],
-  "author": "Aaron Allport",
+  "author": "Gregory L Edwards",
   "main": "app/index.js",
   "files": [
     "app",
@@ -35,9 +35,9 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/aaronallport/generator-angular-require.git"
+    "url": "https://github.com/edqu/generator-angular-require.git"
   },
-  "bugs": "http://github.com/aaronallport/generator-angular-require/issues",
+  "bugs": "http://github.com/edqu/generator-angular-require/issues",
   "scripts": {
     "test": "mocha"
   },

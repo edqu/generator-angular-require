@@ -12,10 +12,10 @@ var ViewGenerator = ScriptBase.extend({
 
   createViewFile: function() {
     this.htmlTemplate(
-      '../common/app/views/view.html',
+      '../common/app/views/view.php',
       path.join(
         'views',
-        this.name.toLowerCase() + '.html'
+        this.name.toLowerCase() + '.php'
       )
     );
   }

@@ -15,7 +15,7 @@ define(['angular']/*deps*/, function (angular)/*invoke*/ {
     .config(function ($routeProvider) {
       $routeProvider
         .when('/', {
-          templateUrl: 'views/main.html',
+          templateUrl: 'views/main.php',
           controller: 'MainCtrl'
         })
         .otherwise({
