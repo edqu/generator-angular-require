@@ -42,11 +42,11 @@
     "test": "mocha"
   },
   "dependencies": {
-    "yeoman-generator": "~0.17.0",
     "bower-requirejs": "~1.1.2",
-    "yosay": "^1.0.0",
     "chalk": "^0.5.1",
-    "wiredep": "~1.8.5"
+    "wiredep": "~1.8.5",
+    "yeoman-generator": "^0.17.7",
+    "yosay": "^1.0.0"
   },
   "peerDependencies": {
     "generator-karma-require": ">=0.1.6",
