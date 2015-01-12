@@ -7,9 +7,9 @@
 
 ## Usage
 
-Install `generator-angular-require`:
+Install `generator-angular-require-php`:
 ```
-npm install -g generator-angular-require
+npm install -g generator-angular-require-php
 ```
 
 Make a new directory, and `cd` into it:
@@ -17,9 +17,9 @@ Make a new directory, and `cd` into it:
 mkdir my-new-project && cd $_
 ```
 
-Run `yo angular-require`, optionally passing an app name:
+Run `yo angular-require-php`, optionally passing an app name:
 ```
-yo angular-require [app-name]
+yo angular-require-php [app-name]
 ```
 
 `grunt build` must be run before anything else due to dependency population in the RequireJS config and the like (this will be fixed in a future version).
@@ -31,18 +31,18 @@ Run `grunt` for building and `grunt serve` for preview
 
 Available generators:
 
-* [angular-require](#app) (aka [angular-require:app](#app))
-* [angular-require:controller](#controller)
-* [angular-require:directive](#directive)
-* [angular-require:filter](#filter)
-* [angular-require:route](#route)
-* [angular-require:service](#service)
-* [angular-require:provider](#service)
-* [angular-require:factory](#service)
-* [angular-require:value](#service)
-* [angular-require:constant](#service)
-* [angular-require:decorator](#decorator)
-* [angular-require:view](#view)
+* [angular-require-php](#app) (aka [angular-require:app](#app))
+* [angular-require-php:controller](#controller)
+* [angular-require-php:directive](#directive)
+* [angular-require-php:filter](#filter)
+* [angular-require-php:route](#route)
+* [angular-require-php:service](#service)
+* [angular-require-php:provider](#service)
+* [angular-require-php:factory](#service)
+* [angular-require-php:value](#service)
+* [angular-require-php:constant](#service)
+* [angular-require-php:decorator](#decorator)
+* [angular-require-php:view](#view)
 
 **Note: Generators are to be run from the root directory of your app.**
 
