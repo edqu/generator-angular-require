@@ -10,6 +10,12 @@ var RouteGenerator = ScriptBase.extend({
   constructor: function() {
     ScriptBase.apply(this, arguments);
 
+    this.option('uri', {
+      desc: 'Allow a custom uri for routing',
+      type: String,
+      required: false
+    });
+
     var bower = require(path.join(process.cwd(), 'bower.json'));
     var match = require('fs').readFileSync(
       path.join(this.config.get('appPath'), 'scripts/app.js'), 'utf-8'

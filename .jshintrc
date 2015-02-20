@@ -1,25 +1,23 @@
 {
-	"node": true,
-	"esnext": true,
 	"bitwise": false,
 	"curly": false,
 	"eqeqeq": true,
 	"eqnull": true,
+	"esnext": true,
+	"globals": {
+		/* AMD */
+		"define" : false,
+		/* Custom */
+		"ngRoutes": false,
+		"ngSanitize": false,
+		"ngCookies": false,
+		"ngResource": false
+	},
+	"globalstrict": true,
 	"immed": true,
 	"latedef": true,
 	"newcap": true,
 	"noarg": true,
-	"undef": true,
 	"strict": false,
-	"trailing": true,
-	"smarttabs": true,
-	"globals": {
-		/* AMD */
-		"define" : false,
-	    /* Custom */
-	    "ngRoutes": false,
-	    "ngSanitize": false,
-	    "ngCookies": false,
-	    "ngResource": false
-	}
+	"undef": true,
 }

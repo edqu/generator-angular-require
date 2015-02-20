@@ -14,10 +14,15 @@ module.exports = function (grunt) {
     },
     release: {
       options: {
-        commitMessage: 'chore(release): Release version <%= version %>',
-        tagName: 'v<%= version %>',
         bump: false, // we have our own bump
-        file: 'package.json'
+        commitMessage: 'chore(release): Release version <%= version %>',
+        file: 'package.json',
+        github: {
+          repo: 'aaronallport/generator-angular-require',
+          usernameVar: 'GITHUB_USERNAME',
+          passwordVar: 'GITHUB_AUTHTOKEN'
+        },
+        tagName: 'v<%= version %>',
       }
     },
     stage: {

@@ -103,6 +103,14 @@ var AngularRequireJSGenerator = yeoman.generators.Base.extend({
         value: 'touchModule',
         name: 'angular-touch.js',
         checked: true
+      }, {
+        value: 'ariaModule',
+        name: 'angular-aria.js',
+        checked: false
+      }, {
+        value: 'messagesModule',
+        name: 'angular-messages.js',
+        checked: false
       }]
     }], function (props) {
       this.compass = props.compass;
@@ -110,6 +118,8 @@ var AngularRequireJSGenerator = yeoman.generators.Base.extend({
       this.compassBootstrap = props.compassBootstrap;
 
       var hasMod = function (mod) { return props.modules.indexOf(mod) !== -1; };
+      this.ariaModule = hasMod('ariaModule');
+      this.messagesModule = hasMod('messagesModule');
       this.resourceModule = hasMod('resourceModule');
       this.cookiesModule = hasMod('cookiesModule');
       this.sanitizeModule = hasMod('sanitizeModule');
@@ -121,6 +131,14 @@ var AngularRequireJSGenerator = yeoman.generators.Base.extend({
 
       if (this.cookiesModule) {
         angMods.push("'ngCookies'");
+      }
+
+      if (this.ariaModule) {
+        angMods.push("'ngAria'");
+      }
+
+      if (this.messagesModule) {
+        angMods.push("'ngMessages'");
       }
 
       if (this.resourceModule) {
@@ -179,6 +197,10 @@ var AngularRequireJSGenerator = yeoman.generators.Base.extend({
 
     jshint: function() {
       this.copy('../../templates/common/root/.jshintrc', '.jshintrc');
+    },
+
+    readme: function() {
+      this.copy('root/README.md', 'README.md');  
     },
 
     testDirectory: function() {
@@ -250,11 +272,13 @@ var AngularRequireJSGenerator = yeoman.generators.Base.extend({
       });
     }
 
-    if (this.resourceModule) { enabledComponents.push('angular-resource/angular-resource.js'); }
-    if (this.cookiesModule) { enabledComponents.push('angular-cookies/angular-cookies.js'); }
-    if (this.sanitizeModule) { enabledComponents.push('angular-sanitize/angular-sanitize.js'); }
-    if (this.routeModule) { enabledComponents.push('angular-route/angular-route.js'); }
     if (this.animateModule) { enabledComponents.push('angular-animate/angular-animate.js'); }
+    if (this.ariaModule) { enabledComponents.push('angular-aria/angular-aria.js'); }
+    if (this.cookiesModule) { enabledComponents.push('angular-cookies/angular-cookies.js'); }
+    if (this.messagesModule) { enabledComponents.push('angular-messages/angular-messages.js'); }
+    if (this.resourceModule) { enabledComponents.push('angular-resource/angular-resource.js'); }
+    if (this.routeModule) { enabledComponents.push('angular-route/angular-route.js'); }
+    if (this.sanitizeModule) { enabledComponents.push('angular-sanitize/angular-sanitize.js'); }
     if (this.touchModule) { enabledComponents.push('angular-touch/angular-touch.js'); }
 
     this.composeWith('karma-require', {

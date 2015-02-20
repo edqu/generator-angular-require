@@ -29,7 +29,7 @@
     "expect": false,
     "inject": false,
     "it": false,
-    "jasmine": false,
+    "jasmine": true,
     "spyOn": false,
     "angular": false,
     /* AMD */
@@ -41,4 +41,3 @@
     "ngResource": false
   }
 }
-

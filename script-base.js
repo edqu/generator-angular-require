@@ -9,36 +9,30 @@ var ScriptBase = yeoman.generators.NamedBase.extend({
   constructor: function(name) {
     yeoman.generators.NamedBase.apply(this, arguments);
 
+    var bowerJson = {};
+
     try {
-      this.appname = require(path.join(process.cwd(), 'bower.json')).name;
-    }
-    catch (e) {
+      bowerJson = require(path.join(process.cwd(), 'bower.json'));
+    } catch (e) {}
+
+    if (bowerJson.name) {
+      this.appname = bowerJson.name;
+    } else {
       this.appname = path.basename(process.cwd());
     }
     this.appname = this._.slugify(this._.humanize(this.appname));
-    this.scriptAppName = this._.camelize(this.appname) + angularUtils.appName(this);
+
+    this.scriptAppName = bowerJson.moduleName || this._.camelize(this.appname) + angularUtils.appName(this);
 
     this.cameledName = this._.camelize(this.name);
     this.classedName = this._.classify(this.name);
 
     if (typeof this.env.options.appPath === 'undefined') {
-      this.env.options.appPath = this.options.appPath;
-
-      if (!this.env.options.appPath) {
-        try {
-          this.env.options.appPath = this.config.get('appPath');
-        } catch (e) {}
-      }
-      this.env.options.appPath = this.env.options.appPath || 'app';
+      this.env.options.appPath = this.options.appPath || bowerJson.appPath || 'app';
       this.options.appPath = this.env.options.appPath;
     }
 
-    if (typeof this.env.options.testPath === 'undefined') {
-      try {
-        this.env.options.testPath = require(path.join(process.cwd(), 'bower.json')).testPath;
-      } catch (e) {}
-      this.env.options.testPath = this.env.options.testPath || 'test/spec';
-    }
+    this.env.options.testPath = this.env.options.testPath || bowerJson.testPath || 'test/spec';
 
     var sourceRoot = '/templates/javascript';
     this.scriptSuffix = '.js';

@@ -1,5 +1,4 @@
 <% if (compassBootstrap) { %>$icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
-
 <% } %>// bower:scss
 // endbower
 
@@ -10,10 +9,8 @@
   padding: 0.2em 0;
 }
 
-/* Space out content a bit */
 body {
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding: 0;
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
@@ -27,6 +24,7 @@ body {
 /* Custom page header */
 .header {
   border-bottom: 1px solid #e5e5e5;
+  margin-bottom: 10px;
 
   /* Make the masthead heading the same height as the navigation */
   h3 {
@@ -81,12 +79,10 @@ body {
     padding-left: 0;
     padding-right: 0;
   }
-
   /* Space out the masthead */
- .header {
+  .header {
     margin-bottom: 30px;
   }
-
   /* Remove the bottom border on the jumbotron for visual effect */
   .jumbotron {
     border-bottom: 0;

@@ -1,3 +1,69 @@
+<a name="0.4.2"></a>
+### 0.4.2 (2015-02-11)
+
+
+#### Bug Fixes
+
+* **app:**
+  * remove IE8 support ([ad8641fa](https://github.com/aaronallport/generator-angular-require/commit/ad8641faf16a45f2b297774212113e5fa6d7a54c))
+  * add empty repository field ([6db3c19a](https://github.com/aaronallport/generator-angular-require/commit/6db3c19a6f6633a439b35ee315caf8e5f3d00023))
+  * remove angular-scenario ([060060f4](https://github.com/aaronallport/generator-angular-require/commit/060060f4464bbb1ebb71a23875c61b7605a7e660))
+  * unify styles ([813f3964](https://github.com/aaronallport/generator-angular-require/commit/813f3964cc10d6a72d5ef75dbe3480ed12c14aec))
+  * change HTML markup for updated Bootstrap ([1c1a72d0](https://github.com/aaronallport/generator-angular-require/commit/1c1a72d09180935c24cfaad5ecb5fbb557721ccb))
+  * set jasmine: true in test/.jshint ([a94788e7](https://github.com/aaronallport/generator-angular-require/commit/a94788e79a78227b877d58f32ab10e382ed8b26a))
+* **autoprefixer:** enable sourcemap for server target ([4a93b602](https://github.com/aaronallport/generator-angular-require/commit/4a93b602af79d9ef3b3737b0b8f647438a4dc3d8))
+* **karma:** compass and autoprefixer need wiredep:sass for test task ([60e89ec9](https://github.com/aaronallport/generator-angular-require/commit/60e89ec96b3b05780096be986708653bf0bb70d3))
+
+
+#### Features
+
+* **app:**
+  * read module name form bower.json ([27386f34](https://github.com/aaronallport/generator-angular-require/commit/27386f34ee0f601749582ef30411b0b3a97525fd))
+  * generate readme.md in resulting project ([c38f1db6](https://github.com/aaronallport/generator-angular-require/commit/c38f1db61c41377f780cc30ca9eccf2faef56184))
+  * support running form non-root folders ([43587b96](https://github.com/aaronallport/generator-angular-require/commit/43587b960bdccc45e672d2581606553480ec50c2))
+
+
+#### Breaking Changes
+
+* Removed IE8 support files
+
+Merged from
+https://github.com/yeoman/generator-angular/commit/7c6f245b73ce59782aed0
+a1efd300e83569eb0e8
+ ([ad8641fa](https://github.com/aaronallport/generator-angular-require/commit/ad8641faf16a45f2b297774212113e5fa6d7a54c))
+* no longer include angular-scenario
+
+Merged from
+https://github.com/yeoman/generator-angular/commit/947b31b5f252446fd44c4
+7866bbf830e4b3b4101
+ ([060060f4](https://github.com/aaronallport/generator-angular-require/commit/060060f4464bbb1ebb71a23875c61b7605a7e660))
+
+
+<a name="0.4.1"></a>
+### 0.4.1 (2014-11-23)
+
+#### Features
+
+* **deps:** updated dependencies ([a0a038ab](https://github.com/aaronallport/generator-angular-require/commit/a0a038abc3f28a46de04c9371b3b1979b1eaa737))
+
+<a name="0.4.0"></a>
+## 0.4.0 (2014-11-22)
+
+
+#### Bug Fixes
+
+* **build:**
+  * allow to copy font files from subfolders ([3ebce73e](https://github.com/aaronallport/generator-angular-require/commit/3ebce73e371a23f64aa920461341e873bb3b0772))
+  * do not clean git related subfolders of dist ([410563ad](https://github.com/aaronallport/generator-angular-require/commit/410563ad2fd963fb6b94483f63e5d53b6e11f229))
+* **gen:** Fix bower.json in generated projects ([4fdec83c](https://github.com/aaronallport/generator-angular-require/commit/4fdec83c1a55929ac9683f3c45cba9240021b2c9))
+* **view:** add forward slashes to menu items paths (href attribute) ([323bdaa7](https://github.com/aaronallport/generator-angular-require/commit/323bdaa73eb73c036e041ba48849c2ce83fa812a))
+
+
+#### Features
+
+* **app:** add ngAria and ngMessages ([371432ff](https://github.com/aaronallport/generator-angular-require/commit/371432fffe0fe7e15619861cce084e32cb73d1ce))
+
+
 <a name="0.3.3"></a>
 ### 0.3.3 (2014-10-11)
 

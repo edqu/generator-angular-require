@@ -86,6 +86,10 @@ module.exports = function (grunt) {
                 '/bower_components',
                 connect.static('./bower_components')
               ),
+              connect().use(
+                '/app/styles',
+                connect.static('./app/styles')
+              ),
               connect.static(appConfig.app)
             ];
           }
@@ -143,7 +147,7 @@ module.exports = function (grunt) {
           src: [
             '.tmp',
             '<%%= yeoman.dist %>/{,*/}*',
-            '!<%%= yeoman.dist %>/.git*'
+            '!<%%= yeoman.dist %>/.git{,*/}*'
           ]
         }]
       },
@@ -154,6 +158,17 @@ module.exports = function (grunt) {
     autoprefixer: {
       options: {
         browsers: ['last 1 version']
+      },
+      server: {
+        options: {
+          map: true,
+        },
+        files: [{
+          expand: true,
+          cwd: '.tmp/styles/',
+          src: '{,*/}*.css',
+          dest: '.tmp/styles/'
+        }]
       },
       dist: {
         files: [{
@@ -202,7 +217,7 @@ module.exports = function (grunt) {
       },
       server: {
         options: {
-          debugInfo: true
+          sourcemap: true
         }
       }
     },<% } %>
@@ -233,7 +248,11 @@ module.exports = function (grunt) {
       html: ['<%%= yeoman.dist %>/{,*/}*.html'],
       css: ['<%%= yeoman.dist %>/styles/{,*/}*.css'],
       options: {
-        assetsDirs: ['<%%= yeoman.dist %>','<%%= yeoman.dist %>/images']
+        assetsDirs: [
+          '<%%= yeoman.dist %>',
+          '<%%= yeoman.dist %>/images',
+          '<%%= yeoman.dist %>/styles'
+        ]
       }
     },
 
@@ -310,7 +329,7 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           // cwd: '<%%= yeoman.app %>/scripts',
-          src: ['<%%= yeoman.app %>/scripts/**/*.js', '!<%%= yeoman.app %>/scripts/oldieshim.js'],
+          src: ['<%%= yeoman.app %>/scripts/**/*.js'],
           dest: '.tmp'
         }]
       }
@@ -337,7 +356,7 @@ module.exports = function (grunt) {
             '*.html',
             'views/{,*/}*.html',
             'images/{,*/}*.{webp}',
-            'fonts/*'
+            'styles/fonts/{,*/}*.*'
           ]
         }, {
           expand: true,
@@ -456,7 +475,7 @@ module.exports = function (grunt) {
       'clean:server',
       'wiredep',
       'concurrent:server',
-      'autoprefixer',
+      'autoprefixer:server',
       'connect:livereload',
       'watch'
     ]);
@@ -471,6 +490,7 @@ module.exports = function (grunt) {
     'clean:server',
     'bower:app',
     'replace:test',
+    'wiredep',
     'concurrent:test',
     'autoprefixer',
     'connect:test',
